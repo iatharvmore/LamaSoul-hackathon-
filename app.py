@@ -2,7 +2,10 @@ import streamlit as st
 import google.generativeai as gemini
 
 # Assuming you have a function to get Gemini API key from secrets
-gemini.configure(api_key=st.secrets["api_key"])
+try:
+    gemini.configure(api_key=st.secrets["api_key"]["api_key"])
+except KeyError:
+    st.error("API key for Gemini is missing. Please add it to your Streamlit secrets.")
 
 st.header("Personalized Fitness and Diet Plan Generator 💪 🧘 🍽️")
 
